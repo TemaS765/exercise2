@@ -1,0 +1,36 @@
+{
+  "name": "sort",
+  "version": "1.0.0",
+  "description": "App sorted",
+  "main": "index.js",
+  "dependencies": {
+    "webpack": "^4.10.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.1.0",
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server",
+    "serv": "static build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TemaS765/sort.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TemaS765/sort/issues"
+  },
+  "homepage": "https://github.com/TemaS765/sort#readme"
+}
