@@ -1,0 +1,46 @@
+.panel-control {
+    margin-bottom: 20px;
+}
+.btn-create-comp {
+    margin-left: 30px;
+    padding: 15px 70px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background: #FFFFFF;
+    outline: none;
+    font-size: 14px;
+}
+.component {
+    display:flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.head-comp {
+    display: flex;
+    align-items: center;
+}
+.wrapper-btn-del-comp {
+    margin-left: 10px;
+}
+.btn-del-comp {
+    border: 1px solid black;
+    border-radius: 50%;
+    background: #FFF;
+    font-size: 10px;
+    padding: 10px 10px 5px 10px;
+    outline: none;
+}
+.list {
+    position: relative;
+    margin: 10px 0;
+}
+.elem {
+    background: red;
+    border: 1px solid black;
+    text-align: center;
+    position: absolute;
+    transition: all 0.3s;
+}
+.elem-complete {
+    background: aqua;
+}
