@@ -4,11 +4,12 @@
 
 import Sorter from "./modules/Sorter";
 import Model from "./modules/Model";
+import Component from "./modules/Component";
 
 var sorter = new Sorter(); //создаем обьект сортировщика
 var model = new Model(); //создаем обьект управления элементами
 
-//обьявляем глобальные переменные
+/*//обьявляем глобальные переменные
 var btn = document.querySelectorAll('.btn-control button');
 var btn_next = btn[1];
 var btn_prev = btn[0];
@@ -31,5 +32,12 @@ btn_next.onclick = function() {
     if (sort_mass)
         model.transpElements(sort_mass);
 
-};
+};*/
+
+
+////
+
+let component = new Component();
+
+component.getDataServer();
 
