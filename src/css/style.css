@@ -1,3 +1,6 @@
+*{
+    font-family: sans-serif;
+}
 .container-components {
     position: relative;
 }
@@ -13,6 +16,10 @@
     outline: none;
     font-size: 14px;
 }
+.wrapper-component {
+    position: absolute;
+    width: 200px;
+}
 .component {
     position: absolute;
     display:flex;
@@ -20,8 +27,7 @@
     margin-left: 20px;
 }
 .head-comp {
-    display: flex;
-    align-items: center;
+    text-align: right;
 }
 .wrapper-btn-del-comp {
     margin-left: 10px;
@@ -48,4 +54,10 @@
 .elem-complete {
     background: aqua;
 }
+.status {
+    padding: 20px 0 20px 0;
+    margin: 30px;
+    text-align: center;
+}
+
 
