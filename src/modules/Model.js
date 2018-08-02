@@ -1,5 +1,11 @@
 export default class Model {
 
+    constructor(){
+       let colors = ['aqua','antiquewhite','bisque','burlywood','cadetblue','tomato','cornflowerblue','darkcyan','darkgrey','springgreen'];
+       let rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0;
+       this.color = colors[rand];
+    }
+
     //метод удаения модели данных
     removeModel(){
         document.querySelector('input[type=text]').value = '';
@@ -20,16 +26,16 @@ export default class Model {
 		//добавляем элементы со значениями
 		let el = document.createElement('div');
 		el.setAttribute('class', 'elem');
-		el.innerText = num;
-		el.style.height = 20 * num + 'px';
+		//el.innerText = num;
+		el.style.height = num + 'px';
 		el.style.width = 8 + 'px';
 		el.style.left = 15 * x + 'px';
 		el.style.top = 15 * y + 'px';
 		return el;
 	}
 	//метеод вставки элементов
-	postElem(elem, index) {
-		let list = document.querySelector('.list');
+	postElem(elem, index, list) {
+		//let list = document.querySelector('.list');
 		list.insertBefore(elem,list.children[index]); //вставляем элемент по индексу
 	}
 
@@ -39,9 +45,11 @@ export default class Model {
 		list.removeChild(list.children[index]);
 	}
 	//метод перерисовки
-	repaint() {
+	repaint(elems) {
 
-		let elems = document.querySelectorAll('.elem');
+
+        let obj = this;
+		//let elems = document.querySelectorAll('.elem');
 
 		for (let i = 0; i < elems.length; i++) {
 			elems[i].style.transition = 'none';
@@ -51,7 +59,7 @@ export default class Model {
 		let timer = setTimeout(function() {
 			for (var i = 0; i < elems.length; i++) {
 				elems[i].style.transition = '0.3s';
-				elems[i].style.background = 'aqua';
+				elems[i].style.background = obj.color;
 			}
 		}, 10);
 	}
@@ -59,6 +67,7 @@ export default class Model {
 	transpElements(mass) {
 
         let list = document.querySelector('.list');
+        let obj = this;
 
         let trans_el = [];
 
@@ -81,8 +90,8 @@ export default class Model {
         list.children[trans_el[1]].style.background = "red";
 
         list.children[trans_el[0]].addEventListener("transitionend",function () {
-            list.children[trans_el[0]].style.background = "aqua";
-            list.children[trans_el[1]].style.background = "aqua";
+            list.children[trans_el[0]].style.background = obj.color;
+            list.children[trans_el[1]].style.background = obj.color;
         }, false);
 
 
@@ -108,7 +117,8 @@ export default class Model {
 	//Метод создания модели данных
 	createModels(inp,list) {
 
-        let mass_num = inp.value;
+        //let mass_num = inp.value;
+        let mass_num  = inp;
         let mass_el = list.children;
         let col_num = mass_num.length;
         let col_el = list.childNodes.length - 1;
@@ -139,8 +149,8 @@ export default class Model {
 
             if (f_el_created == false){
                 let new_elem = this.create(mass_num[i_n],i_n,0);  //создаем элемент
-                this.postElem(new_elem,i_n);
-                this.repaint();
+                this.postElem(new_elem,i_n,list);
+                this.repaint(list.getElementsByClassName('elem'));
             }
         }
 
@@ -160,6 +170,5 @@ export default class Model {
         }
 	}
 
-	
 }
 

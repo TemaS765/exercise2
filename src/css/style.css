@@ -27,7 +27,11 @@
     margin-left: 20px;
 }
 .head-comp {
-    text-align: right;
+    display: flex;
+    align-items: center;
+}
+.body-comp {
+    position: relative;
 }
 .wrapper-btn-del-comp {
     margin-left: 10px;
@@ -50,10 +54,9 @@
     text-align: center;
     position: absolute;
     transition: all 0.3s;
+    word-wrap: break-word;
 }
-.elem-complete {
-    background: aqua;
-}
+
 .status {
     padding: 20px 0 20px 0;
     margin: 30px;

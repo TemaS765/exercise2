@@ -1,8 +1,10 @@
+import Model from "./Model.js";
+
 export default class Component {
 
     constructor(){
         this.count = 0;
-        this.offset = 150;
+        this.offset = 300;
     }
     //Создание обложки компонента
     createWrappComp(x, y, id){
@@ -14,6 +16,7 @@ export default class Component {
         wrapper.style.left = x + 'px';
         wrapper.style.top = y + 'px';
         wrapper.innerHTML = '<div class="head-comp">' +
+                                '<div class="data"></div>' +
                             '<div class="wrapper-btn-del-comp">' +
                             '   <input class="btn-del-comp" type="button" value="X">' +
                             '</div>' +
@@ -21,20 +24,24 @@ export default class Component {
 
         return wrapper;
     }
-    createBodyComp(id, data){
+    createBodyComp(){
 
         let body_cmp = document.createElement('div');
         body_cmp.className = 'body-comp';
-        body_cmp.innerHTML = '<div class="data">[' + data + ']</div>' +
-                         '<div class="btn-control">' +
+        body_cmp.innerHTML = '<div class="btn-control">' +
                             '<button>prev</button>' +
                             '<button>next</button>' +
                          '</div>' +
                          '<div class="list">' +
                          '</div>';
+        return body_cmp;
 
     }
-
+    //Добавление тела элемента в обертку
+    addBodyComp(body, id){
+        let container = document.querySelectorAll('.wrapper-component');
+        container[id].appendChild(body);
+    }
     //Добавление обьекта в дом модель
     add(obj) {
 
@@ -131,7 +138,20 @@ export default class Component {
             else{
                 obj.removeStatus(parseInt(region.style.top)/obj.offset);
                 //region[parseInt(region.style.top)/obj.offset].appendChild(obj.createBodyComp(parseInt(region.style.top)/obj.offset, xhr.responseText.split(',')));
-                console.log(JSON.parse(xhr.responseText));
+                //console.log(JSON.parse(xhr.responseText)['result']);
+                //console.log(parseInt(region.style.top)/obj.offset);
+
+
+               obj.addBodyComp(obj.createBodyComp(), parseInt(region.style.top)/obj.offset);
+                     let input = JSON.parse(xhr.responseText)['result'];
+           let list = component.getElementsByClassName('list')[0];
+
+          let model = new Model();
+
+          model.createModels(input,list);
+                component.getElementsByClassName('data')[0].innerText = "[" + JSON.parse(xhr.responseText)['result'].join(",") + "]";
+
+
             }
 
 
