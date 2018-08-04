@@ -55,6 +55,8 @@ btn_create.onmouseup = function () {
 btn_create.onmouseout = function () {
     btn_create.style.background = 'white';
 };
+
+
 //component.add(component.createWrappComp(0, 50,1));
 
 //component.addStatus(component.createStatus('loading'), 1);

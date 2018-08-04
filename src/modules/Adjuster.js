@@ -1,5 +1,5 @@
 
-export default class Sorter {
+export default class Adjuster {
 
 	constructor() {
 		this.stop_index = 0; //инициализация индекса остановки
@@ -63,6 +63,8 @@ export default class Sorter {
 
 		this.stop_index = stop_index;
 
+		//console.log(array_diff(elems,mass));
+
 		if (elems.join('') != mass.join('')){
 			this.setIndexStory(stop_index);
 			this.setStepStory(mass.join(''));
@@ -80,7 +82,6 @@ export default class Sorter {
 			return this.popStepStory();
         }
         else {
-	    	//this.stop_index = 0;
             return false;
         }
     }

@@ -1,18 +1,18 @@
 import Model from "./Model.js";
+import Adjuster from "./Adjuster.js";
 
 export default class Component {
 
     constructor(){
         this.count = 0;
-        this.offset = 300;
+        this.offset = 200;
     }
     //Создание обложки компонента
-    createWrappComp(x, y, id){
+    createWrappComp(x, y){
 
         let wrapper = document.createElement('div');
 
         wrapper.className = 'wrapper-component';
-       // wrapper.id = 'wr-cmp-' + id;
         wrapper.style.left = x + 'px';
         wrapper.style.top = y + 'px';
         wrapper.innerHTML = '<div class="head-comp">' +
@@ -29,8 +29,8 @@ export default class Component {
         let body_cmp = document.createElement('div');
         body_cmp.className = 'body-comp';
         body_cmp.innerHTML = '<div class="btn-control">' +
-                            '<button>prev</button>' +
-                            '<button>next</button>' +
+                            '<button class="btn-prev">prev</button>' +
+                            '<button class="btn-next">next</button>' +
                          '</div>' +
                          '<div class="list">' +
                          '</div>';
@@ -93,13 +93,14 @@ export default class Component {
         let obj = this;
         let x = 0;
         let y = this.offset * this.count;
-        let id = this.count;
+        //let model = new Model();
+        //let adjuster = new Adjuster();
+        //let id = this.count;
 
         xhr.open('GET',"http://localhost:1234/array",true);
-
         xhr.send();
 
-        let component = this.createWrappComp(x, y, id);
+        let component = this.createWrappComp(x, y);
 
         let btn_dell = component.getElementsByClassName('btn-del-comp');
         btn_dell[0].onclick = function () {
@@ -110,16 +111,9 @@ export default class Component {
         };
 
         this.add(component);
-
-
-        //this.add(this.createWrappComp(0, this.offset * this.count, this.count));
-
         this.addStatus(this.createStatus('loading'), this.count);
-
         this.count++;
-
         let region = document.querySelectorAll('.wrapper-component')[this.count-1];
-
 
         xhr.onreadystatechange = function () {
 
@@ -137,26 +131,28 @@ export default class Component {
             }
             else{
                 obj.removeStatus(parseInt(region.style.top)/obj.offset);
-                //region[parseInt(region.style.top)/obj.offset].appendChild(obj.createBodyComp(parseInt(region.style.top)/obj.offset, xhr.responseText.split(',')));
-                //console.log(JSON.parse(xhr.responseText)['result']);
-                //console.log(parseInt(region.style.top)/obj.offset);
-
-
-               obj.addBodyComp(obj.createBodyComp(), parseInt(region.style.top)/obj.offset);
-                     let input = JSON.parse(xhr.responseText)['result'];
-           let list = component.getElementsByClassName('list')[0];
-
-          let model = new Model();
-
-          model.createModels(input,list);
+                obj.addBodyComp(obj.createBodyComp(), parseInt(region.style.top)/obj.offset);
+                let input = JSON.parse(xhr.responseText)['result'];
+                let list = component.getElementsByClassName('list')[0];
+                let model = new Model();
+                let adjuster = new Adjuster();
+                model.createModels(input,list);
                 component.getElementsByClassName('data')[0].innerText = "[" + JSON.parse(xhr.responseText)['result'].join(",") + "]";
 
+                let btn_next = component.getElementsByClassName('btn-next');
+                btn_next[0].onclick = function () {
+                    let list = component.getElementsByClassName('list')[0];
+                    let mass = model.currentMassElems(list);
+                    model.transpElements(adjuster.sortStep(mass), list);
+                };
 
+                let btn_prev = component.getElementsByClassName('btn-prev');
+                btn_prev[0].onclick = function () {
+                    let list = component.getElementsByClassName('list')[0];
+                    model.transpElements(adjuster.prevStep(), list);
+                };
             }
-
-
         }
-
     }
     //Удаляем компонент по id
     removeComponent(id){
@@ -175,7 +171,5 @@ export default class Component {
         this.count--;
 
     }
-
-
 
 }

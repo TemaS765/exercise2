@@ -68,7 +68,7 @@ export default class Sorting {
 			this.setStepStory(mass.join(''));
         }
 		 else{
-            return false;
+            return null;
 		}
 
 		return elems;

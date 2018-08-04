@@ -47,7 +47,6 @@ export default class Model {
 	//метод перерисовки
 	repaint(elems) {
 
-
         let obj = this;
 		//let elems = document.querySelectorAll('.elem');
 
@@ -64,21 +63,23 @@ export default class Model {
 		}, 10);
 	}
 	//метод перестановки элементов
-	transpElements(mass) {
+	transpElements(mass = false,list) {
 
-        let list = document.querySelector('.list');
+        //let list = document.querySelector('.list');
         let obj = this;
 
         let trans_el = [];
 
-        let col_el = list.childNodes.length - 1;
+        let col_el = list.childNodes.length;
 
         for(let i = 0; i < col_el; i++){
 
             let num = parseInt(list.children[i].style.left, 10);
             let pos = (num == 0) ?  0 : num/15;
 
-            if(mass[pos] != list.children[i].innerText) trans_el.push(i);
+            if (mass === false) return;
+
+            if(mass[pos] != parseInt(list.children[i].style.height)) trans_el.push(i);
 
         }
 
@@ -100,8 +101,8 @@ export default class Model {
 
 	}
 	//метод получения текущего расположения элементов на странице
-	currentMassElems() {
-		let list = document.querySelector('.list');
+	currentMassElems(list) {
+		//let list = document.querySelector('.list');
 		let elems = list.children;
 		let col_el = elems.length;
 		let mass_el = [];
@@ -109,7 +110,7 @@ export default class Model {
 		for(let i = 0; i < col_el; i++){
 			let id = parseInt(elems[i].style.left, 10); //получаем место элемента в массиве
 			id = id / 15;
-			mass_el[id] = elems[i].innerText;
+			mass_el[id] = parseInt(elems[i].style.height);
 		}
 
 		return mass_el;
